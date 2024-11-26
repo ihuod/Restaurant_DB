@@ -23,7 +23,7 @@ The **Restaurant** database is designed to manage information about dishes, thei
   - `ID` (INT, PRIMARY KEY) — unique identifier for each recipe.
   - `Dish_ID` (INT, NOT NULL) — identifier for the associated dish (foreign key).
   - `Time` (FLOAT, CHECK (Time > 0)) — preparation time in minutes.
-  - `Technology` (VARCHAR(255), NOT NULL) — cooking technology used.
+  - `Technology` (VARCHAR(255), NOT NULL) — cooking technology used (e.g., baking, boiling, frying).
 - **Constraints**:
   - `FK_Recipe_Dish` — foreign key referencing `Dish(ID)`.
   - `UC_Recipe_Dish` — unique constraint on `Dish_ID`.
