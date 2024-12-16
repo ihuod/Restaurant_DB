@@ -1,5 +1,9 @@
 # Restaurant Database
 
+## Deploy
+
+http://84.201.167.162:8200/
+
 ## Description
 
 The **Restaurant** database is designed to manage information about dishes, their recipes, and the cooking process. It consists of three tables: **Dish**, **Recipe**, and **Cooking**.
