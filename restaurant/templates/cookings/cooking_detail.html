@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Cooking Detail{% endblock %}
+
+{% block content %}
+<h1>Cooking of {{ cooking.dish.name }}</h1>
+<p><strong>Dish Name:</strong> {{ cooking.dish.name }}</p>
+<p><strong>Amount Prepared:</strong> {{ cooking.amount }} units</p>
+<p><strong>Date:</strong> {{ cooking.date }}</p>
+
+<!-- Actions -->
+<div>
+    <a class="floating-button" href="{% url 'cooking_edit' cooking.id %}">Edit</a> |
+    <a class="floating-button" href="{% url 'cooking_delete' cooking.id %}">Delete</a>
+</div>
+
+{% endblock %}

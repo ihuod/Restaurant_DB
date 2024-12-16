@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Recipe{% endblock %}
+
+{% block content %}
+<h1>Are you sure you want to delete the recipe for "{{ recipe.dish.name }}"?</h1>
+
+<p><strong>Cooking Time:</strong> {{ recipe.time }} minutes</p>
+<p><strong>Cooking Technology:</strong> {{ recipe.technology }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button class="floating-button" type="submit">Yes, delete</button>
+</form>
+
+<a class="floating-button" href="{% url 'recipe_list' %}">Cancel</a>
+{% endblock %}

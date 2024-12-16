@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Create or Edit Cooking{% endblock %}
+
+{% block content %}
+<h1>{% if cooking %}Edit{% else %}Create{% endif %} Cooking</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <label for="dish">Dish</label>
+    <select id="dish" name="dish" required>
+        {% for dish_item in dishes %}
+            <option value="{{ dish_item.id }}" {% if cooking and cooking.dish.id == dish_item.id %}selected{% endif %}>{{ dish_item.name }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="mbt-10px"></div>
+
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" value="{% if cooking %}{{ cooking.amount }}{% endif %}" required>
+
+    <div class="mbt-10px"></div>
+
+    <label for="date">Date</label>
+    <input type="datetime-local" id="date" name="date" value="{% if cooking %}{{ cooking.date }}{% endif %}" required>
+
+    <div class="mbt-10px"></div>
+
+    <button class="floating-button" type="submit">{% if cooking %}Save Changes{% else %}Create Cooking{% endif %}</button>
+</form>
+
+<a class="floating-button" href="{% url 'cooking_list' %}">Cancel</a>
+{% endblock %}

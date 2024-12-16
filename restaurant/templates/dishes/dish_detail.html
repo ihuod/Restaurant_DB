@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Dish Detail{% endblock %}
+
+{% block content %}
+<h1>{{ dish.name }}</h1>
+<p><strong>Type:</strong> {{ dish.type }}</p>
+<p><strong>Weight:</strong> {{ dish.weight }} grams</p>
+<p><strong>Price:</strong> {{ dish.price }} USD</p>
+
+<!-- Actions -->
+<div>
+    <a class="floating-button" href="{% url 'dish_edit' dish.id %}">Edit</a> |
+    <a class="floating-button" href="{% url 'dish_delete' dish.id %}">Delete</a>
+</div>
+
+{% endblock %}

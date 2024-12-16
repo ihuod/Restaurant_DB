@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Cooking List{% endblock %}
+
+{% block content %}
+<h1>Cooking List</h1>
+<a class="floating-button" href="{% url 'cooking_create' %}">Create</a>
+{% if current_sort != 'id' %}
+    <p>Current sort: {{ current_sort }} {% if current_order == 'asc' %}ascending{% else %}descending{% endif %}</p>
+{% else %}
+    <p>Click on the column header to sort</p>
+{% endif %}
+<table>
+    <thead>
+        <tr>
+            <th><a href="?sort=dish__name&order={% if current_sort == 'dish__name' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'dish__name' %}{{ current_order }}{% endif %}">Dish</a></th>
+            <th><a href="?sort=amount&order={% if current_sort == 'amount' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'amount' %}{{ current_order }}{% endif %}">Amount</a></th>
+            <th><a href="?sort=date&order={% if current_sort == 'date' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'date' %}{{ current_order }}{% endif %}">Date</a></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cooking in cookings %}
+        <tr>
+            <td>{{ cooking.dish.name }}</td>
+            <td>{{ cooking.amount }}</td>
+            <td>{{ cooking.date }}</td>
+            <td>
+                <a class="floating-button" href="{% url 'cooking_detail' cooking.id %}">Details</a> |
+                <a class="floating-button" href="{% url 'cooking_edit' cooking.id %}">Edit</a> |
+                <a class="floating-button" href="{% url 'cooking_delete' cooking.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

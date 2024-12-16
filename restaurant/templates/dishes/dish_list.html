@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Dish List{% endblock %}
+
+{% block content %}
+<h1>Dish List</h1>
+<a class="floating-button" href="{% url 'dish_create' %}">Create</a>
+{% if current_sort != 'id' %}
+    <p>Current sort: {{ current_sort }} {% if current_order == 'asc' %}ascending{% else %}descending{% endif %}</p>
+{% else %}
+    <p>Click on the column header to sort</p>
+{% endif %}
+<table>
+    <thead>
+        <tr>
+            <th><a href="?sort=name&order={% if current_sort == 'name' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'name' %}{{ current_order }}{% endif %}">Name</a></th>
+            <th><a href="?sort=type&order={% if current_sort == 'type' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'type' %}{{ current_order }}{% endif %}">Type</a></th>
+            <th><a href="?sort=weight&order={% if current_sort == 'weight' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'weight' %}{{ current_order }}{% endif %}">Weight</a></th>
+            <th><a href="?sort=price&order={% if current_sort == 'price' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'price' %}{{ current_order }}{% endif %}">Price</a></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dish in dishes %}
+        <tr>
+            <td>{{ dish.name }}</td>
+            <td>{{ dish.type }}</td>
+            <td>{{ dish.weight }}</td>
+            <td>{{ dish.price }}</td>
+            <td>
+                <a class="floating-button" href="{% url 'dish_detail' dish.id %}">Details</a> |
+                <a class="floating-button" href="{% url 'dish_edit' dish.id %}">Edit</a> |
+                <a class="floating-button" href="{% url 'dish_delete' dish.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

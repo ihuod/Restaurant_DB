@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipe List{% endblock %}
+
+{% block content %}
+<h1>Recipe List</h1>
+<a class="floating-button" href="{% url 'recipe_create' %}">Create</a>
+{% if current_sort != 'id' %}
+    <p>Current sort: {{ current_sort }} {% if current_order == 'asc' %}ascending{% else %}descending{% endif %}</p>
+{% else %}
+    <p>Click on the column header to sort</p>
+{% endif %}
+<table>
+    <thead>
+        <tr>
+            <th><a href="?sort=dish__name&order={% if current_sort == 'dish__name' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'dish__name' %}{{ current_order }}{% endif %}">Dish</a></th>
+            <th><a href="?sort=time&order={% if current_sort == 'time' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'time' %}{{ current_order }}{% endif %}">Time</a></th>
+            <th><a href="?sort=technology&order={% if current_sort == 'technology' and current_order == 'asc' %}desc{% else %}asc{% endif %}" aria-sort="{% if current_sort == 'technology' %}{{ current_order }}{% endif %}">Technology</a></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recipe in recipes %}
+        <tr>
+            <td>{{ recipe.dish.name }}</td>
+            <td>{{ recipe.time }} mins</td>
+            <td>{{ recipe.technology|truncatechars:100 }}</td>
+            <td>
+                <a class="floating-button" href="{% url 'recipe_detail' recipe.id %}">Details</a> |
+                <a class="floating-button" href="{% url 'recipe_edit' recipe.id %}">Edit</a> |
+                <a class="floating-button" href="{% url 'recipe_delete' recipe.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

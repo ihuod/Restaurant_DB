@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Create or Edit Recipe{% endblock %}
+
+{% block content %}
+<h1>{% if recipe %}Edit{% else %}Create{% endif %} Recipe</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label for="dish">Dish</label>
+    <select id="dish" name="dish" required>
+        {% for dish_item in dishes %}
+            <option value="{{ dish_item.id }}" {% if recipe and recipe.dish.id == dish_item.id %}selected{% endif %}>{{ dish_item.name }}</option>
+        {% endfor %}
+    </select>
+
+    <div class="mbt-10px"></div>
+
+    <label for="time">Cooking Time (in minutes)</label>
+    <input type="number" step="any" id="time" name="time" value="{% if recipe %}{{ recipe.time }}{% endif %}" required>
+
+    <div class="mbt-10px"></div>
+
+    <label for="technology">Cooking Technology</label>
+    <textarea id="technology" name="technology" required>{% if recipe %}{{ recipe.technology }}{% endif %}</textarea>
+
+    <div class="mbt-10px"></div>
+
+    <button class="floating-button" type="submit">{% if recipe %}Save Changes{% else %}Create Recipe{% endif %}</button>
+</form>
+
+<a class="floating-button" href="{% url 'recipe_list' %}">Cancel</a>
+{% endblock %}
